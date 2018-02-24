@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <h1>Add a new animal</h1>
+        <form action="/animals/<%= animal.id %>" method="post">
+            <label for="id">ID:</label>
+            <input type="text" id="id" name="id" placeholder="<%= animal.id %>"><br>
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" placeholder="<%=animal.type %>"><br>
+            <label for="numLegs">Number of Legs</label>
+            <input type="text" id="numLegs" name="numLegs" placeholder="<%= animal.numLegs %>"><br>
+            <label for="mobilityType">Mobility Type</label>
+            <input type="text" id="mobilityType" name="mobilityType" placeholder="<%= animal.mobilityType %>"><br>
+            <input type="submit" value="Update">
+        </form>
+    </body>
+</html>

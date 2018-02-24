@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <p>ID: <%= animal.id %></p>
+        <p>Type: <%= animal.type %></p>
+        <p>Number of legs: <%= animal.numLegs %></p>
+        <p>Mobility Type: <%= animal.mobilityType %></p>
+    </body>
+    <form action="/animals/edit/<%= animal.id %>" method="get">
+        <input type="submit" value="Update">
+    </form>
+    <form action="/animals/destroy/<%= animal.id %>" method="post">
+        <input type="submit" value="delete">
+    </form>
+</html>
