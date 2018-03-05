@@ -5,10 +5,64 @@ html {
 
 body{
     width: 90%;
-    height: 90%;
     margin: 0 auto;
+    padding: 1%;
+    border: 1px solid black;
 }
 
 div {
+    background-color:gainsboro;
+    border:2px solid black;
+    padding: 1%;
+    margin: 1%;
+    width: 85%;
+}
+
+h1{
+    border:2px solid black;
+    padding: 1%;
+    margin: 1%;
+    width: 85%;
+    background-color: burlywood;
+    color:black;
+}
+
+#post {
+    background-color: cadetblue;
+    width: 85%;
+    padding: 1%;
+    margin: 1%;
+    border: 2px solid black;
+}
+
+#post input[type="submit"]{
+    background-color: green;
+    color: white;
+    font-size: medium;
+    padding: 5px;
+    border: none;
+    margin: 1% 0%;
+}
+#post label,#postcomment label{
+    color: white;
+}
+
+#postcomment{
     background-color: grey;
+    width: 50%;
+    padding: 1%;
+    margin: 1%;
+}
+
+#postcomment input[type="submit"]{
+    background-color:brown;
+    color: white;
+    font-size: medium;
+    padding: 5px;
+    border: none;
+    margin: 1% 0%;
+}
+
+.comments{
+    background-color: beige;
 }

@@ -24,6 +24,7 @@ var Message = mongoose.model('Message',MessageSchema);
 
 //Comment Schema & Model
 var CommentSchema = new mongoose.Schema({
+    username:{type:String,required:true,minlength:4},
     _message:{type:Schema.Types.ObjectId,ref:'Message'},
     comment:{type:String}
 },{timestamps:true});
@@ -31,11 +32,11 @@ var Comment = mongoose.model('Comment',CommentSchema);
 
 //Root route
 app.get('/',function(req,res){
-    Message.find({},function(err,messages){
+    Message.find({})
+    .populate('comments')
+    .exec(function(err,messages){
         res.render('index',{messages});
     })
-
-
 })
 
 //Messages route - Saves the message in db and redirected to root route
@@ -50,6 +51,25 @@ app.post('/messages',function(req,res){
             console.log('Message saved');
             res.redirect('/');
         }
+    })
+})
+
+//Route saves the comment in database
+app.post('/messages/:id',function(req,res){
+    Message.findOne({_id:req.params.id})
+    .then((message)=>{
+        var comment = new Comment(req.body);
+        comment._message = message._id;
+        comment.save()
+        .then(()=>{
+            message.comments.push(comment);
+            message.save()
+            .then(()=>{
+                res.redirect('/')
+            })
+            .catch(console.log);
+        })
+        .catch(console.log)
     })
 })
 
