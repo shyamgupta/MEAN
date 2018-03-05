@@ -1,0 +1,22 @@
+<html>
+    <head>
+            <link rel="stylesheet" href="../static/styles.css" type="text/css">
+    </head>
+    <body>
+        <h1>The Dojo Message Board</h1>
+        <hr>
+        <form action="/messages" method="post">
+            <label for="username">Name</label><br>
+            <input type="text" name="username" id="username"><br>
+            <label for="message">Message:</label><br>
+            <textarea name="message" id="message" cols="30" rows="10"></textarea><br>
+            <input type="submit" value="Post Message">
+        </form>
+        <% for ( x in messages) { %>
+            <div>
+                <p>Name: <%= messages[x].username %></p>
+                <p>Message: <%= messages[x].message %></p>
+            </div>
+        <% } %>
+    </body>
+</html>
