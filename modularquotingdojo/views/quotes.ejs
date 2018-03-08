@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <h1>Here are the awsome quotes!</h1>
+        <ol>
+        <% for (x in allquotes) { %>
+            <li><%= allquotes[x].quote %>, <%= allquotes[x].username %> at <%= (allquotes[x].createdAt).toUTCString() %></li>
+        <% } %>
+    </ol>
+    </body>
+    <form action="gohome" method="post">
+        <input type="submit" value="Go Home">
+    </form>
+</html>
