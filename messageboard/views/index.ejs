@@ -16,12 +16,15 @@
                 <h2>Message:</h2>
                 <p><strong>Name:</strong> <%= messages[x].username %></p>
                 <p><strong>Message:</strong> <%= messages[x].message %></p>
+                <% if (messages[x].comments.length>0) {%>
+                
                 <div class="comments">
                         <h3>Comments</h3>
                         <% for (let y=0; y<messages[x].comments.length;y++) { %>
                             <p><strong><%=  messages[x].comments[y].username %>:</strong> <%=  messages[x].comments[y].comment %></p>
                         <% } %>
             </div>
+            <% } %>
                 <form action="/messages/<%= messages[x]._id %>" method="post" id="postcomment">
                     <label for="username">Name</label><br>
                     <input type="text" id="username" name="username"><br>

@@ -35,6 +35,7 @@ app.get('/',function(req,res){
     Message.find({})
     .populate('comments')
     .exec(function(err,messages){
+        console.log('Populating comments, ',messages);
         res.render('index',{messages});
     })
 })
@@ -42,16 +43,12 @@ app.get('/',function(req,res){
 //Messages route - Saves the message in db and redirected to root route
 app.post('/messages',function(req,res){
     var message = new Message(req.body);
-    message.save(function(err){
-        if(err){
-            console.log('Message not saved');
-            res.redirect('/');
-        }
-        else{
-            console.log('Message saved');
-            res.redirect('/');
-        }
+    message.save()
+    .then(()=>{
+        console.log('Message saved');
+        res.redirect('/');
     })
+    .catch(console.log);
 })
 
 //Route saves the comment in database
@@ -62,12 +59,12 @@ app.post('/messages/:id',function(req,res){
         comment._message = message._id;
         comment.save()
         .then(()=>{
-            message.comments.push(comment);
-            message.save()
-            .then(()=>{
-                res.redirect('/')
-            })
-            .catch(console.log);
+                    message.comments.push(comment);
+                    message.save()
+                    .then(()=>{
+                        res.redirect('/')
+                    })
+                    .catch(console.log);
         })
         .catch(console.log)
     })
