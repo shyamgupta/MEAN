@@ -13,14 +13,7 @@ mongoose.Promise = global.Promise;
 //Connect to database
 mongoose.connect('mongodb://localhost/modulardb');
 
-//Create Schema
-var QuoteSChema = new mongoose.Schema({
-    username:{type:String,required:true,minlength:2},
-    quote:{type:String,required:true,minlength:2,maxlength:100}
-},{timestamps:true});
-
-//Register Schema with Mongoose and create model
-var Quote = mongoose.model('Quote',QuoteSChema);
+require('./server/models/quote');
 
 //Routes
 require('./server/config/routes.js')(app);
