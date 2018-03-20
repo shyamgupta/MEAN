@@ -1,0 +1,9 @@
+<html>
+    <body>
+        <h1>Displaying all quotes</h1>
+        <% for (let i=0;i<quotes.length;i++) { %>
+            <p>Username:<%= quotes[i].username %>, Quote: <%= quotes[i].quote %>.<a href="/delete/<%= quotes[i]._id %>">Delete</a>/<a href="/edit/<%= quotes[i]._id %>">Update</a></p>
+        <% } %>
+        <a href="/">Home</a>
+    </body>
+</html>

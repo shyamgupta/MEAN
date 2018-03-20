@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <form action="/update/<%= quote[0]._id %>" method="post">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" value="<%= quote[0].username %>"><br>
+            <label for="quote">Quote:</label>
+            <input type="text" name="quote" id="quote" value="<%= quote[0].quote %>"><br>
+            <input type="submit" value="Update">;
+        </form>
+    </body>
+</html>
