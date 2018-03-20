@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 //Connect to database
-mongoose.connect('mongodb://localhost/modulardb');
+require('./server/config/mongoose');
 
 require('./server/models/quote');
 
