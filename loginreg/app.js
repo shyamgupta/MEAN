@@ -43,19 +43,15 @@ var UserSchema = new mongoose.Schema({
 
 //pre-save hook for encrypting password
 UserSchema.pre('save',function(next){
-    let user = this;
-    if(!user.isNew){
-        return next();
-    }
-    else{
-        bcrypt.hash(user.password,10)
-        .then(hash=>{
-            user.password = hash;
-            next();
-        })
-        .catch(console.log)
+    bcrypt.hash(this.password,10)
+    .then(hash=>{
+        this.password = hash;
         next();
-    }
+        })
+    .catch((err)=>{
+        console.log(err);
+        next();
+    })
 })
 
 
