@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
-const brcypt = require('bcrypt-as-promised');
+const bcrypt = require('bcrypt-as-promised');
 const session = require('express-session');
 app.use(session({
     secret:'ThisIsASecretKey',
@@ -44,11 +44,11 @@ var UserSchema = new mongoose.Schema({
 //pre-save hook for encrypting password
 UserSchema.pre('save',function(next){
     let user = this;
-    if(!user.isModified('password')){
+    if(!user.isNew){
         return next();
     }
     else{
-        brcypt.hash(user.password,10)
+        bcrypt.hash(user.password,10)
         .then(hash=>{
             user.password = hash;
             next();
