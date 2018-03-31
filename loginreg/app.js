@@ -25,23 +25,30 @@ var UserSchema = new mongoose.Schema({
     email: {
         type:String,
         required:[true,"Email field cannot be blank"],
-        validate:[{
-            validator:function(email){
-            return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-            },
-            message:"Not a valid email address"
+        validate:[
+            {
+                validator:function(email){
+                    return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+                    },
+                    message:"Not a valid email address"
             },
             {
                 validator:function(email){
-                    User.findOne({'email':email},function(err,user){
+                    User.findOne({email:email},function(err,user){
                         if(user){
-                            return false
+                            return false;
+                        }
+                        else{
+                            console.log('User not found, good to go.')
+                            return true;
                         }
                     })
+                    
                 },
-                message:"Email is already registered. Please use a different email address."
+                message:"Please use a unique email address."
             }
         ]
+        
     },
     first:{
         type:String,
@@ -80,7 +87,6 @@ UserSchema.pre('save',function(next){
 var User = mongoose.model('User',UserSchema);
 
 
-
 //Root route - Displays registration and login forms
 app.get('/',function(req,res){
     res.render('index.ejs');
@@ -95,7 +101,6 @@ app.post('/register',function(req,res){
         res.redirect('/');
     })
     .catch(err =>{
-        console.log(err.errors.email.message);
         res.json(err);
     });
 })
