@@ -25,7 +25,23 @@ var UserSchema = new mongoose.Schema({
     email: {
         type:String,
         required:[true,"Email field cannot be blank"],
-        unique:[true,"Email is already regustered. Please use a different email address."]
+        validate:[{
+            validator:function(email){
+            return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
+            },
+            message:"Not a valid email address"
+            },
+            {
+                validator:function(email){
+                    User.findOne({'email':email},function(err,user){
+                        if(user){
+                            return false
+                        }
+                    })
+                },
+                message:"Email is already registered. Please use a different email address."
+            }
+        ]
     },
     first:{
         type:String,
@@ -37,7 +53,10 @@ var UserSchema = new mongoose.Schema({
         required:[true,"Last name should be minimum 2 characters"],
         minlength:[2,"Last name should be minimum 2 characters"]
     },
-    password:{type:String,required:true,minlength:6},
+    password:{type:String,
+        required:true,
+        minlength:[6,"Password should be minimum 6 characters"],
+    },
     dob:{type:Date,required:true}
 });
 
@@ -75,7 +94,10 @@ app.post('/register',function(req,res){
     .then(()=>{
         res.redirect('/');
     })
-    .catch(console.log);
+    .catch(err =>{
+        console.log(err.errors.email.message);
+        res.json(err);
+    });
 })
 
 
