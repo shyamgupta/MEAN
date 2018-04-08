@@ -1,0 +1,16 @@
+div{
+    border: 2px solid black;
+    display: inline-block;
+    margin: 10px;
+
+}
+
+button{
+    background: red;
+    color: white;
+}
+
+button.on{
+    background: green;
+    color: white;;
+}

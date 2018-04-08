@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'US Time Zone Display';
-  currentTime:string;
+  currentTime:string = "";
   showTime(data): string{
     if(data === "PST"){
       this.currentTime = new Date().toLocaleString("en-US",{timeZone: "America/Los_Angeles"});
@@ -23,8 +23,10 @@ export class AppComponent {
     }
     else if(data === 'Clear'){
       console.log(data);
-      this.currentTime === "";
+      this.currentTime = '';
+      data = "";
     }
+    this.currentTime += " "+ data;
     return this.currentTime;
   }
 }
