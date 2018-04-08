@@ -1,0 +1,22 @@
+<h1>{{title}}</h1>
+<table>
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Importance</th>
+        <th>Subject</th>
+        <th>Content</th>
+      </tr>
+  </thead>
+  <tbody *ngFor = 'let email of emails'>
+      <tr>
+        <td>{{ email.email | lowercase }}</td>
+        <td *ngIf = 'email.importance'>High</td>
+        <td *ngIf = '!email.importance'>Low</td>
+        <td>{{ email.subject }}</td>
+        <td>{{ email.content }}</td>
+      </tr>
+  </tbody>
+</table>
+<button (click)="onButtonClick(5)">Click Me!</button>
+<button (click)="seeEvent($event)">Click Me!</button>

@@ -5,6 +5,7 @@ const path = require('path');
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 const port = process.env.port || 8080;
+const uniqueValidator = require('mongoose-unique-validator');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
@@ -25,30 +26,15 @@ var UserSchema = new mongoose.Schema({
     email: {
         type:String,
         required:[true,"Email field cannot be blank"],
+        unique:[true,'Email is already registered. Please use a different email address.'],
         validate:[
             {
                 validator:function(email){
-                    return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)
-                    },
-                    message:"Not a valid email address"
-            },
-            {
-                validator:function(email){
-                    User.findOne({email:email},function(err,user){
-                        if(user){
-                            return false;
-                        }
-                        else{
-                            console.log('User not found, good to go.')
-                            return true;
-                        }
-                    })
-                    
+                    return /^[a-zA-Z0-9.!#$%&’*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
                 },
-                message:"Please use a unique email address."
+                message:"Not a valid email address."    
             }
         ]
-        
     },
     first:{
         type:String,
@@ -67,6 +53,11 @@ var UserSchema = new mongoose.Schema({
     dob:{type:Date,required:true}
 });
 
+
+
+//validate that email address is unique
+UserSchema.plugin(uniqueValidator,{message:`{PATH} is already registered. Please use a unique email address.`});
+
 //pre-save hook for encrypting password
 UserSchema.pre('save',function(next){
     if(this.isNew || this.isModified('password')){
@@ -82,6 +73,12 @@ UserSchema.pre('save',function(next){
     }
 })
 
+//
+UserSchema.pre('save',function(next){
+    
+})
+
+
 
 //Create User model
 var User = mongoose.model('User',UserSchema);
@@ -96,13 +93,19 @@ app.get('/',function(req,res){
 app.post('/register',function(req,res){
     console.log(req.body);
     let user = new User(req.body);
-    user.save()
+    if(req.body.password === req.body.cpassword){
+        user.save()
     .then(()=>{
         res.redirect('/');
     })
     .catch(err =>{
         res.json(err);
     });
+    }
+    else{
+        console.log('Passwords do not match');
+        res.redirect('/');
+    }
 })
 
 
