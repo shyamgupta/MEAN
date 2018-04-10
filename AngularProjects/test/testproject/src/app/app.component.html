@@ -1,0 +1,12 @@
+<form  #formData = "ngForm" (ngSubmit)="onSubmit(formData)" novalidate>
+  <input type="text" name="first_name" required minlength="4" maxlength="25" [(ngModel)]='user.first_name' #firstname = "ngModel"><br>
+  <p *ngIf = '!firstname.valid && firstname.touched' class="valerror">First name is required</p>
+  <input type="text" name="last_name" required minlength="4" maxlength="25" [(ngModel)]='user.last_name' #lastname = "ngModel"><br>
+  <p *ngIf = '!lastname.valid && lastname.touched' class="valerror">Last name is required</p>
+  <input type="text" name="email" required minlength="4" maxlength="25" [(ngModel)]='user.email' #email = "ngModel"><br>
+  <p *ngIf = '!email.valid && email.touched' class="valerror">Email is required</p>
+  <input type="text" name="password" required minlength="4" maxlength="15" [(ngModel)]='user.password' #password = "ngModel"><br>
+  <p *ngIf = '!pasword.valid && password.touched' class="valerror">Password name is required - Min 4 and Max 15 characters</p>
+  <button type="submit" [disabled]="!formData.form.valid" >Register</button>
+</form>
+<pre>Valid form? {{ formData.form.valid | json }}</pre>

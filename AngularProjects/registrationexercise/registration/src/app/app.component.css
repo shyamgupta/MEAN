@@ -1,0 +1,28 @@
+label{
+    text-align: left;
+    margin:10px;
+}
+input,select,button{
+    margin: 5px;
+}
+
+button{
+    padding: 5px;
+    font-size: large;
+    background-color: teal;
+    color: white;
+}
+#lucky{
+    display: inline-block;
+}
+
+
+
+.validation{
+    color: red;
+    
+}
+div{
+    width: 500px;
+}
+

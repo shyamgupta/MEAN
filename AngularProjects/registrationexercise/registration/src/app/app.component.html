@@ -1,0 +1,65 @@
+<h1>Registration</h1>
+<p *ngIf = 'submitted'>Thank you for registering with us {{users[0].first_name}}. We just sent you a confirmaiton email at {{users[0].email}} and we will send all mail to {{users[0].street}},{{users[0].unit}},{{users[0].city}},{{users[0].state}}. Have a wonderful day!
+</p> 
+<form #formData = "ngForm" novalidate (ngSubmit)="formData.valid && onSubmit(formData.value)" >
+  <div>
+  <label for="first_name">*First Name: </label>
+  <input type="text" required name="first_name" id="first_name" [(ngModel)]="user.first_name" #firstname = "ngModel"><br>
+  <p *ngIf = 'firstname.errors && (firstname.dirty || firstname.touched)' class="validation">First Name is required.</p>
+</div>
+<div>
+<label for="last_name">*Last Name: </label>
+  <input type="text" required name="last_name" id="last_name" [(ngModel)]="user.last_name"  #lastname = "ngModel"><br>
+  <p *ngIf = 'lastname.errors && (lastname.dirty || lastname.touched)' class="validation">Last Name is required.</p>
+</div>  
+<div>
+<label for="email">*Email: </label>
+  <input type="text" required name="email" id="email" [(ngModel)]="user.email" #email="ngModel"><br>
+  <p *ngIf = 'email.errors && (email.dirty || email.touched)' class="validation">Email is required.</p>
+</div>  
+<div>
+<label for="password">*Password: </label>
+  <input type="password" required name="password" id="password" minlength="4" [(ngModel)]="user.password" #password="ngModel"><br>
+  <p *ngIf = 'password.errors && (password.dirty || password.touched)' class="validation">Password is required, min 4 characters.</p>
+</div>  
+<div>
+  <label for="cpassword">*Confirm Password: </label>
+  <input type="password" required name="cpassword" id="cpassword" minlength="4" [(ngModel)]="user.cpassword" #cpassword="ngModel"><br>
+  <p *ngIf = 'cpassword.errors && (cpassword.dirty || cpassword.touched)' class="validation">Confirm Password is required.</p>
+  <p *ngIf = 'user.password != user.cpassword' class="validation">Passwords do not match</p>
+</div>
+<div>
+  <label for="street">*Street Address: </label>
+  <input type="text"required name="street" id="street" [(ngModel)]="user.street" #street="ngModel" ><br>
+  <p *ngIf = 'street.errors && (street.dirty || street.touched)' class="validation">Street is required.</p>
+</div>
+<div>
+  <label for="unit">Unit/Apt#: </label>
+  <input type="text" name="unit" id="unit" [(ngModel)]="user.unit" #unit = "ngModel"><br>
+</div>
+<div>
+  <label for="city">*City: </label>
+  <input type="text" name="city" required id="city"  [(ngModel)]="user.city" #city = "ngModel"><br>
+  <p *ngIf = 'city.errors && (city.dirty || city.touched)' class="validation">City is required.</p>
+</div>
+<div>
+<label for="state">*State: </label>
+  <input type="text" required name="state" id="state"  [(ngModel)]="user.state" #state = "ngModel"><br>
+  <p *ngIf = 'state.errors && (state.dirty || state.touched)' class="validation">City is required.</p>
+</div>  
+<div>
+  <p id="lucky">*I'm feeling lucky:</p>
+  <input type="radio" name="lucky" required value="Yes" id="option1"  [(ngModel)]="user.lucky" #lucky="ngModel">
+  <label for="option1">Yes</label>
+  <input type="radio" name="lucky" required value="No" id="option2" [(ngModel)]="user.lucky" #lucky="ngModel">
+  <label for="option2">No</label><br>
+  <p *ngIf = 'lucky.errors && (lucky.dirty || lucky.touched)' class="validation">Please respond if you're feeling lucky</p>
+</div>
+  <button type="submit">Register</button>
+</form>
+  
+  
+  
+ 
+  
+  

@@ -1,0 +1,15 @@
+input{
+    margin: 10px;
+    border: 2px solid black;
+    box-shadow: none;
+}
+
+button{
+    background-color: steelblue;
+    color: white;
+    font-size: large;
+    padding: 10px;
+    border: none;
+    margin: 10px;
+}
+
